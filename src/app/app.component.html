@@ -1,0 +1,63 @@
+<!-- app.component.html -->
+<div class="container">
+  <div class="row pt-3">
+    <div class="col-6">
+      <h4>Gestion de livres</h4> 
+    </div>
+    <div class="col-6 text-end">
+      <button class="btn btn-outline-success" (click)="openModel()">Nouveau</button>
+    </div>
+  </div>
+  <!-- Affichage de la liste de livres -->
+  <div class="row">
+    <div *ngFor="let item of bookList" class="col-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              {{ item.title }}
+            </div>
+            <div class="col-6 text-end">
+              {{ item.author }}
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Publié en: {{ item.year }}</p>
+          <p>{{ item.description }}</p>
+        </div>
+        <div class="card-footer text-center">
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-sm btn-primary" (click)="onEdit(item)">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="onDelete(item)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="bookList.length === 0" class="col-12 p-4 text-center">
+      <p>Aucun livre trouvé. Ajouter un nouveau livre</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour ajouter/modifier un livre -->
+<div id="myModal" #myModal style="display:none;">
+  <div>
+    <label for="title">Titre :</label>
+    <input id="title" [(ngModel)]="bookObj.title" />
+
+    <label for="author">Auteur :</label>
+    <input id="author" [(ngModel)]="bookObj.author" />
+
+    <label for="year">Année :</label>
+    <input id="year" [(ngModel)]="bookObj.year" />
+
+    <label for="description">Description :</label>
+    <textarea id="description" [(ngModel)]="bookObj.description"></textarea>
+
+    <button (click)="saveBook()">Enregistrer</button>
+    <button (click)="closeModel()">Annuler</button>
+  </div>
+</div>
